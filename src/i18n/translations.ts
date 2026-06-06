@@ -130,6 +130,42 @@ export const translations = {
     cyr: "Файлингиз муваффақиятли қайта ишланди.",
   },
 
+  // Compress tool — quality variants
+  "compress.original": { lat: "Asl hajm", cyr: "Асл ҳажм" },
+  "compress.choose": {
+    lat: "Siqish darajasini tanlang:",
+    cyr: "Сиқиш даражасини танланг:",
+  },
+  "compress.estimating": {
+    lat: "Hajmlar hisoblanmoqda...",
+    cyr: "Ҳажмлар ҳисобланмоқда...",
+  },
+  "compress.estimateFailed": {
+    lat: "Taxminiy hajmni hisoblab bo'lmadi, lekin siqishni davom ettirishingiz mumkin.",
+    cyr: "Тахминий ҳажмни ҳисоблаб бўлмади, лекин сиқишни давом эттиришингиз мумкин.",
+  },
+  "compress.result": { lat: "Natija", cyr: "Натижа" },
+  "compress.reduction": { lat: "qisqarish", cyr: "қисқариш" },
+  "compress.approxNote": {
+    lat: "Hajmlar taxminiy. Aniq natija siqishdan keyin ko'rinadi.",
+    cyr: "Ҳажмлар тахминий. Аниқ натижа сиқишдан кейин кўринади.",
+  },
+  "compress.quality.high": { lat: "Yuqori sifat", cyr: "Юқори сифат" },
+  "compress.quality.high.desc": {
+    lat: "Eng yaxshi sifat, kamroq siqish",
+    cyr: "Энг яхши сифат, камроқ сиқиш",
+  },
+  "compress.quality.recommended": { lat: "Tavsiya etilgan", cyr: "Тавсия этилган" },
+  "compress.quality.recommended.desc": {
+    lat: "Sifat va hajm muvozanati",
+    cyr: "Сифат ва ҳажм мувозанати",
+  },
+  "compress.quality.maximum": { lat: "Maksimal siqish", cyr: "Максимал сиқиш" },
+  "compress.quality.maximum.desc": {
+    lat: "Eng kichik hajm",
+    cyr: "Энг кичик ҳажм",
+  },
+
   // Dropzone
   "drop.title": { lat: "Fayllarni bu yerga tashlang", cyr: "Файлларни бу ерга ташланг" },
   "drop.or": { lat: "yoki", cyr: "ёки" },

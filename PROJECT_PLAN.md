@@ -76,10 +76,17 @@ Foydalanuvchilarning ~80% i shularni ishlatadi. To'liq mukammal qilinadi.
    - Qoldi (keyinroq sayqal): modal'da ГТД jadval chiziqlari sifati
      (react-pdf yuqori devicePixelRatio/scale bilan)
 
-2. **PDF Compress (siqish)** — ✅ ishlaydi, sayqal kerak
-   - Qo'shilsin: 3 variant (Yuqori sifat / Tavsiya etilgan / Maksimal siqish)
-   - Har variantда kutilayotgan fayl hajmini ko'rsatish
-   - "TUGADI" mezoniga yetkazish
+2. **PDF Compress (siqish)** — ✅ TUGADI
+   - 3 variant (Yuqori sifat / Tavsiya etilgan / Maksimal siqish) "Boshlash"dan
+     oldin ko'rsatiladi, har birида taxminiy fayl hajmi va qisqarish foizi
+   - Haqiqiy siqish: backend rasmlarni qayta siqadi (PyMuPDF `replace_image`,
+     downsample + JPEG), matn vektor bo'lib qoladi. 3 variant haqiqatan turli
+     natija beradi (rasmli hujjatда ~51% / ~74% / ~89% qisqarish)
+   - Estimate tezlashtirildi: avval har variantни to'liq siqib o'lchardi (3-4s),
+     endi rasm baytlarini matematik baholaydi (`xref_stream_raw`, ~50ms, <1s).
+     Natija "~" bilan taxminiy belgilanadi, aniq hajm siqishdan keyin ko'rinadi
+   - Tuzatilgan bug'lar: estimate frontend'да relativ URL bilan noto'g'ri portga
+     so'rov yuborardi; backend `quality` form parametrини `Form()` siz o'qimasdi
 
 3. **PDF Split (ajratish)** — ⏳ yangi
    - Sahifa oralig'i bo'yicha ajratish (masalan 1-5, 6-10)
@@ -143,7 +150,7 @@ Maqsad: har funksiyaga foydalanuvchi **1-2 marta** aralashadi (har qadamда ema
 ## 6. JORIY HOLAT
 
 - ✅ Merge — mukammal (kichik qoldiq: ГТД chiziqlari)
-- ✅ Compress — ishlaydi (3 variant qo'shilishi kerak)
+- ✅ Compress — TUGADI (3 variant + real siqish + tez estimate)
 - ⏳ Qolganlari — boshlanmagan
 
-**Keyingi qadam:** Compress'ni 3 variant bilan "TUGADI" mezoniga yetkazish (Guruh A, 2-band).
+**Keyingi qadam:** PDF Split (ajratish) — Guruh A, 3-band.

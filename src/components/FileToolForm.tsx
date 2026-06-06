@@ -27,6 +27,8 @@ type Props = {
   quality?: string;
   /** callback when files change (for estimates) */
   onFilesChange?: (files: File[]) => void;
+  /** extra content rendered between the file list and the run button (e.g. options) */
+  children?: React.ReactNode;
 };
 
 type Status = "idle" | "processing" | "done" | "error";
@@ -43,6 +45,7 @@ export default function FileToolForm({
   sortable = false,
   quality,
   onFilesChange,
+  children,
 }: Props) {
   const { t } = useLanguage();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -150,6 +153,8 @@ export default function FileToolForm({
           multiple={multiple}
         />
       )}
+
+      {files.length > 0 && children}
 
       {errorKey && (
         <p className="mt-4 rounded-lg bg-brand-50 px-4 py-3 text-sm font-medium text-brand-700">

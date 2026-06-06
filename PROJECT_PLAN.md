@@ -97,10 +97,14 @@ Foydalanuvchilarning ~80% i shularni ishlatadi. To'liq mukammal qilinadi.
    - Xato holatlari (noto'g'ri oraliq, bo'sh/buzuq PDF, chegaradan tashqari)
      o'zbekcha xabar bilan; thumbnail yuklash va siqishда spinner
 
-4. **PDF Rotate (aylantirish)** — ⏳ yangi
-   - Butun hujjatni yoki tanlangan sahifalarni aylantirish (90/180/270)
-   - Thumbnail ustida aylantirish tugmasi
-   - Merge sahifasiga ham integratsiya (har thumbnail'da kichik rotate tugmasi)
+4. **PDF Rotate (aylantirish)** — ✅ TUGADI
+   - Har sahifa thumbnail'ida rotate tugmasi (90° qadam bilan, jonli CSS preview)
+   - "Hammasini" boshqaruvi: chapga 90° / o'ngga 90° / 180° + bekor qilish
+   - Tanlangan sahifalarni yoki hammasini aylantirish; backend joriy burchakka
+     qo'shadi (`/api/pdf/rotate`, `page:burchak` juftliklari, fitz `set_rotation`)
+   - Xato holatlari o'zbekcha; thumbnail/ishlovда spinner; mobil grid
+   - ⏳ Qoldi (keyinroq): Merge sahifasiga integratsiya (har thumbnail'da rotate)
+     — merge "MUKAMMAL TUGADI" bo'lgani uchun alohida, ehtiyotkorlik bilan
 
 5. **PDF ↔ boshqa formatlar (convert)** — ⏳ yangi
    - PDF → Word, PDF → Excel (auditoriya jadvalли hisobotlar bilan ishlaydi — muhim),
@@ -162,6 +166,7 @@ Maqsad: har funksiyaga foydalanuvchi **1-2 marta** aralashadi (har qadamда ema
 - ✅ Merge — mukammal (kichik qoldiq: ГТД chiziqlari)
 - ✅ Compress — TUGADI (3 variant + real siqish + tez estimate)
 - ✅ Split — TUGADI (3 rejim + thumbnail tanlash, brauzerda tasdiqlandi)
+- ✅ Rotate — TUGADI (thumbnail rotate + jonli preview, brauzerda tasdiqlandi)
 - ⏳ Qolganlari — boshlanmagan
 
-**Keyingi qadam:** PDF Rotate (aylantirish) — Guruh A, 4-band.
+**Keyingi qadam:** PDF ↔ formatlar (convert) — Guruh A, 5-band. Yoki Organize (6-band).

@@ -82,6 +82,24 @@ export function Spinner(props: IconProps) {
   );
 }
 
+export function RotateCw(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M21 12a9 9 0 1 1-2.6-6.36L21 8" />
+      <path d="M21 3v5h-5" />
+    </svg>
+  );
+}
+
+export function RotateCcw(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M3 12a9 9 0 1 0 2.6-6.36L3 8" />
+      <path d="M3 3v5h5" />
+    </svg>
+  );
+}
+
 export function Eye(props: IconProps) {
   return (
     <svg {...base} {...props}>

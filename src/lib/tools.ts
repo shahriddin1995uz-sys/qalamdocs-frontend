@@ -74,12 +74,13 @@ export const tools: Tool[] = [
   },
   {
     id: "rotate-pdf",
-    href: "#",
+    href: "/tools/rotate-pdf",
     titleKey: "tool.rotate-pdf.title",
     descKey: "tool.rotate-pdf.desc",
     icon: "rotate-pdf",
     gradient: "from-cyan-500 to-teal-600",
-    available: false,
+    available: true,
+    isNew: true,
   },
   {
     id: "pdf-to-jpg",

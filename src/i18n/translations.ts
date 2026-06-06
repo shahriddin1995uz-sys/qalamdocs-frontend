@@ -212,6 +212,22 @@ export const translations = {
     cyr: "Саҳифа сонини тўғри киритинг (1 дан катта).",
   },
 
+  // Rotate tool
+  "rotate.choose": { lat: "Sahifalarni aylantiring:", cyr: "Саҳифаларни айлантиринг:" },
+  "rotate.all": { lat: "Hammasini:", cyr: "Ҳаммасини:" },
+  "rotate.left": { lat: "Chapga 90°", cyr: "Чапга 90°" },
+  "rotate.right": { lat: "O'ngga 90°", cyr: "Ўнгга 90°" },
+  "rotate.reset": { lat: "Bekor qilish", cyr: "Бекор қилиш" },
+  "rotate.hint": {
+    lat: "Bitta sahifani aylantirish uchun rasm ustidagi tugmani bosing.",
+    cyr: "Битта саҳифани айлантириш учун расм устидаги тугмани босинг.",
+  },
+  "rotate.willRotate": { lat: "sahifa aylantiriladi", cyr: "саҳифа айлантирилади" },
+  "error.rotate.none": {
+    lat: "Avval kamida bitta sahifani aylantiring.",
+    cyr: "Аввал камида битта саҳифани айлантиринг.",
+  },
+
   // Dropzone
   "drop.title": { lat: "Fayllarni bu yerga tashlang", cyr: "Файлларни бу ерга ташланг" },
   "drop.or": { lat: "yoki", cyr: "ёки" },

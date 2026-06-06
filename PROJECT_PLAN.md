@@ -88,7 +88,7 @@ Foydalanuvchilarning ~80% i shularni ishlatadi. To'liq mukammal qilinadi.
    - Tuzatilgan bug'lar: estimate frontend'да relativ URL bilan noto'g'ri portga
      so'rov yuborardi; backend `quality` form parametrини `Form()` siz o'qimasdi
 
-3. **PDF Split (ajratish)** — ✅ TUGADI (brauzer testi kutilmoqda)
+3. **PDF Split (ajratish)** — ✅ TUGADI
    - 3 rejim: Oraliqlar bo'yicha (1-5, 6-10) / Har N sahifadan / Har sahifa alohida
    - Barcha sahifalar thumbnail'lari ko'rsatiladi (raqamlangan); oraliq rejimida
      thumbnail ustiga bosib sahifa qo'shiladi, tanlangan sahifalar yoritiladi
@@ -154,7 +154,7 @@ Maqsad: har funksiyaga foydalanuvchi **1-2 marta** aralashadi (har qadamда ema
 
 - ✅ Merge — mukammal (kichik qoldiq: ГТД chiziqlari)
 - ✅ Compress — TUGADI (3 variant + real siqish + tez estimate)
-- ✅ Split — TUGADI (3 rejim + thumbnail tanlash; brauzer testi kutilmoqda)
+- ✅ Split — TUGADI (3 rejim + thumbnail tanlash, brauzerda tasdiqlandi)
 - ⏳ Qolganlari — boshlanmagan
 
 **Keyingi qadam:** PDF Rotate (aylantirish) — Guruh A, 4-band.

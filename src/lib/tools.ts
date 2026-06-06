@@ -9,6 +9,7 @@ export type ToolId =
   | "rotate-pdf"
   | "pdf-to-jpg"
   | "jpg-to-pdf"
+  | "organize-pdf"
   | "word-to-pdf"
   | "protect-pdf"
   | "sign-pdf";
@@ -100,6 +101,16 @@ export const tools: Tool[] = [
     descKey: "tool.jpg-to-pdf.desc",
     icon: "jpg-to-pdf",
     gradient: "from-pink-500 to-fuchsia-600",
+    available: true,
+    isNew: true,
+  },
+  {
+    id: "organize-pdf",
+    href: "/tools/organize-pdf",
+    titleKey: "tool.organize-pdf.title",
+    descKey: "tool.organize-pdf.desc",
+    icon: "organize-pdf",
+    gradient: "from-teal-500 to-emerald-600",
     available: true,
     isNew: true,
   },

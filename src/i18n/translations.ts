@@ -106,6 +106,11 @@ export const translations = {
     lat: "JPG va PNG rasmlarni bitta PDF'ga birlashtiring.",
     cyr: "JPG ва PNG расмларни битта PDF'га бирлаштиринг.",
   },
+  "tool.organize-pdf.title": { lat: "Sahifalarni boshqarish", cyr: "Саҳифаларни бошқариш" },
+  "tool.organize-pdf.desc": {
+    lat: "Sahifalarni o'chiring va qayta tartiblang.",
+    cyr: "Саҳифаларни ўчиринг ва қайта тартибланг.",
+  },
   "tool.word-to-pdf.title": { lat: "Word dan PDF", cyr: "Word дан PDF" },
   "tool.word-to-pdf.desc": {
     lat: "DOCX hujjatlarini PDF formatiga o'tkazing.",
@@ -231,6 +236,18 @@ export const translations = {
   "error.rotate.none": {
     lat: "Avval kamida bitta sahifani aylantiring.",
     cyr: "Аввал камида битта саҳифани айлантиринг.",
+  },
+
+  // Organize tool
+  "organize.hint": {
+    lat: "Sahifalarni sudrab tartiblang, keraksizlarini o'chiring.",
+    cyr: "Саҳифаларни судраб тартибланг, кераксизларини ўчиринг.",
+  },
+  "organize.remains": { lat: "sahifa qoladi", cyr: "саҳифа қолади" },
+  "organize.restore": { lat: "Aslini tiklash", cyr: "Аслини тиклаш" },
+  "error.organize.empty": {
+    lat: "Kamida 1 sahifa qoldiring.",
+    cyr: "Камида 1 саҳифа қолдиринг.",
   },
 
   // Dropzone

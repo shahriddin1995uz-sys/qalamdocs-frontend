@@ -117,10 +117,12 @@ Foydalanuvchilarning ~80% i shularni ishlatadi. To'liq mukammal qilinadi.
      nomukammal bo'lishi mumkin — alohida qaror bilan qilinadi
    - ⏳ PDF→Word sifatini oshirish (pdf2docx bilan layout/jadval) — alohida
 
-6. **PDF Organize / Sahifalarni boshqarish** — ⏳ yangi
-   - PDF'dan ba'zi sahifalarni o'chirib, qolganini bitta PDF qilib saqlash
-   - Sahifalarni drag&drop bilan qayta tartiblash
-   - Thumbnail bilan vizual tanlash (qaysi sahifa qoladi/o'chadi)
+6. **PDF Organize / Sahifalarni boshqarish** — ✅ TUGADI (brauzer testi kutilmoqda)
+   - Sahifa thumbnail'lari grid'i; dnd-kit bilan drag&drop tartiblash
+   - Har thumbnail'da o'chirish tugmasi; "Aslini tiklash" bilan qaytarish
+   - Natija: tanlangan tartibда bitta PDF (`/api/pdf/organize`, `order` juftligi,
+     fitz `insert_pdf`); yangi kutubxonasiz (faqat fitz + mavjud dnd-kit)
+   - Xato holatlari o'zbekcha; thumbnail/ishlovда spinner; mobil grid
    - **Split'dan farqi:** Split alohida fayllarga *ajratadi*; Organize esa bitta
      fayl ichida sahifalarni *tahrirlaydi* (o'chirish + qayta tartiblash → 1 PDF)
 
@@ -175,6 +177,8 @@ Maqsad: har funksiyaga foydalanuvchi **1-2 marta** aralashadi (har qadamда ema
 - ✅ Rotate — TUGADI (thumbnail rotate + jonli preview, brauzerda tasdiqlandi)
 - 🔶 Convert — rasm konvertatsiyalari TUGADI (JPG→PDF + PDF→JPG, brauzerda
   tasdiqlandi). PDF→Word mavjud. PDF→Excel keyinga qoldirildi (dependency qarori)
+- ✅ Organize — TUGADI (drag&drop tartiblash + sahifa o'chirish; brauzer testi
+  kutilmoqda)
 - ⏳ Qolganlari — boshlanmagan
 
-**Keyingi qadam:** PDF→Excel uchun dependency qarori, yoki Organize (6-band).
+**Keyingi qadam:** PDF→Excel uchun dependency qarori, yoki Guruh B funksiyalari.

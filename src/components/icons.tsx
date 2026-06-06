@@ -237,6 +237,17 @@ function JpgToPdfIcon(props: IconProps) {
   );
 }
 
+function OrganizeIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <rect x="3" y="3" width="7" height="7" rx="1.5" />
+      <rect x="14" y="3" width="7" height="7" rx="1.5" />
+      <rect x="3" y="14" width="7" height="7" rx="1.5" />
+      <path d="M14 17.5h7m-3-3 3 3-3 3" />
+    </svg>
+  );
+}
+
 function WordToPdfIcon(props: IconProps) {
   return (
     <svg {...base} {...props}>
@@ -275,6 +286,7 @@ const toolIcons: Record<ToolId, (p: IconProps) => React.ReactElement> = {
   "rotate-pdf": RotateIcon,
   "pdf-to-jpg": PdfToJpgIcon,
   "jpg-to-pdf": JpgToPdfIcon,
+  "organize-pdf": OrganizeIcon,
   "word-to-pdf": WordToPdfIcon,
   "protect-pdf": ProtectIcon,
   "sign-pdf": SignIcon,

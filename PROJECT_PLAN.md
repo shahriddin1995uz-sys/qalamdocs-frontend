@@ -88,11 +88,14 @@ Foydalanuvchilarning ~80% i shularni ishlatadi. To'liq mukammal qilinadi.
    - Tuzatilgan bug'lar: estimate frontend'да relativ URL bilan noto'g'ri portga
      so'rov yuborardi; backend `quality` form parametrини `Form()` siz o'qimasdi
 
-3. **PDF Split (ajratish)** — ⏳ yangi
-   - Sahifa oralig'i bo'yicha ajratish (masalan 1-5, 6-10)
-   - Har N sahifaga ajratish
-   - Sahifalarni alohida fayllarga ajratish
-   - Sahifa thumbnail'larini ko'rsatib, vizual tanlash
+3. **PDF Split (ajratish)** — ✅ TUGADI (brauzer testi kutilmoqda)
+   - 3 rejim: Oraliqlar bo'yicha (1-5, 6-10) / Har N sahifadan / Har sahifa alohida
+   - Barcha sahifalar thumbnail'lari ko'rsatiladi (raqamlangan); oraliq rejimida
+     thumbnail ustiga bosib sahifa qo'shiladi, tanlangan sahifalar yoritiladi
+   - Natija fayllar soni oldindan ko'rsatiladi; bitta fayl bo'lsa PDF, ko'p
+     bo'lsa ZIP yuklab olinadi (backend `/api/pdf/split`, fitz `insert_pdf`)
+   - Xato holatlari (noto'g'ri oraliq, bo'sh/buzuq PDF, chegaradan tashqari)
+     o'zbekcha xabar bilan; thumbnail yuklash va siqishда spinner
 
 4. **PDF Rotate (aylantirish)** — ⏳ yangi
    - Butun hujjatni yoki tanlangan sahifalarni aylantirish (90/180/270)
@@ -151,6 +154,7 @@ Maqsad: har funksiyaga foydalanuvchi **1-2 marta** aralashadi (har qadamда ema
 
 - ✅ Merge — mukammal (kichik qoldiq: ГТД chiziqlari)
 - ✅ Compress — TUGADI (3 variant + real siqish + tez estimate)
+- ✅ Split — TUGADI (3 rejim + thumbnail tanlash; brauzer testi kutilmoqda)
 - ⏳ Qolganlari — boshlanmagan
 
-**Keyingi qadam:** PDF Split (ajratish) — Guruh A, 3-band.
+**Keyingi qadam:** PDF Rotate (aylantirish) — Guruh A, 4-band.

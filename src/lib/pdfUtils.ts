@@ -89,6 +89,39 @@ export async function generatePDFThumbnail(
 }
 
 /**
+ * Generate small thumbnails for EVERY page of a PDF (for visual page selection,
+ * e.g. the split tool). Returns thumbnails in page order plus the page count.
+ */
+export async function generatePageThumbnails(
+  file: File,
+  targetWidth: number = 150
+): Promise<{ thumbnails: string[]; pageCount: number }> {
+  const pdfjsLib = await loadPdfjs();
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+  const pageCount = pdf.numPages;
+  const thumbnails: string[] = [];
+
+  for (let i = 1; i <= pageCount; i++) {
+    const page = await pdf.getPage(i);
+    const baseViewport = page.getViewport({ scale: 1 });
+    const scale = targetWidth / baseViewport.width;
+    const viewport = page.getViewport({ scale });
+
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    if (!context) throw new Error("Failed to get canvas context");
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+
+    await page.render({ canvasContext: context, viewport, canvas }).promise;
+    thumbnails.push(canvas.toDataURL("image/jpeg", 0.72));
+  }
+
+  return { thumbnails, pageCount };
+}
+
+/**
  * Generate a larger preview (dataURL) from the first page of a PDF file.
  * Used for hover popup preview.
  */

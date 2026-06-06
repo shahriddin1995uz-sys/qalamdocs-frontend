@@ -166,6 +166,52 @@ export const translations = {
     cyr: "Энг кичик ҳажм",
   },
 
+  // Split tool
+  "split.pages": { lat: "sahifa", cyr: "саҳифа" },
+  "split.thumbsLoading": {
+    lat: "Sahifalar yuklanmoqda...",
+    cyr: "Саҳифалар юкланмоқда...",
+  },
+  "split.choose": { lat: "Ajratish usulini tanlang:", cyr: "Ажратиш усулини танланг:" },
+  "split.changeFile": { lat: "Boshqa fayl", cyr: "Бошқа файл" },
+  "split.mode.range": { lat: "Oraliqlar bo'yicha", cyr: "Оралиқлар бўйича" },
+  "split.mode.range.desc": {
+    lat: "Masalan 1-5, 6-10 — har oraliq alohida fayl",
+    cyr: "Масалан 1-5, 6-10 — ҳар оралиқ алоҳида файл",
+  },
+  "split.mode.every": { lat: "Har N sahifadan", cyr: "Ҳар N саҳифадан" },
+  "split.mode.every.desc": {
+    lat: "Hujjatni teng bo'laklarga bo'ladi",
+    cyr: "Ҳужжатни тенг бўлакларга бўлади",
+  },
+  "split.mode.each": { lat: "Har sahifa alohida", cyr: "Ҳар саҳифа алоҳида" },
+  "split.mode.each.desc": {
+    lat: "Har bir sahifa alohida PDF bo'ladi",
+    cyr: "Ҳар бир саҳифа алоҳида PDF бўлади",
+  },
+  "split.ranges.label": { lat: "Sahifa oraliqlari", cyr: "Саҳифа оралиқлари" },
+  "split.ranges.hint": {
+    lat: "Sahifa qo'shish uchun quyidagi rasm ustiga bosing.",
+    cyr: "Саҳифа қўшиш учун қуйидаги расм устига босинг.",
+  },
+  "split.every.label": { lat: "Har nechta sahifadan:", cyr: "Ҳар нечта саҳифадан:" },
+  "split.each.info": {
+    lat: "Har bir sahifa alohida faylga ajratiladi.",
+    cyr: "Ҳар бир саҳифа алоҳида файлга ажратилади.",
+  },
+  "split.willCreate": { lat: "Natijada", cyr: "Натижада" },
+  "split.files": { lat: "ta fayl (ZIP)", cyr: "та файл (ZIP)" },
+  "split.oneFile": { lat: "ta fayl", cyr: "та файл" },
+  "split.pagesTitle": { lat: "Sahifalar", cyr: "Саҳифалар" },
+  "error.split.range": {
+    lat: "Sahifa oralig'ini to'g'ri kiriting (masalan: 1-5, 8).",
+    cyr: "Саҳифа оралиғини тўғри киритинг (масалан: 1-5, 8).",
+  },
+  "error.split.every": {
+    lat: "Sahifa sonini to'g'ri kiriting (1 dan katta).",
+    cyr: "Саҳифа сонини тўғри киритинг (1 дан катта).",
+  },
+
   // Dropzone
   "drop.title": { lat: "Fayllarni bu yerga tashlang", cyr: "Файлларни бу ерга ташланг" },
   "drop.or": { lat: "yoki", cyr: "ёки" },

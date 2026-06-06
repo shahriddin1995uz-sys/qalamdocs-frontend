@@ -64,12 +64,13 @@ export const tools: Tool[] = [
   },
   {
     id: "split-pdf",
-    href: "#",
+    href: "/tools/split-pdf",
     titleKey: "tool.split-pdf.title",
     descKey: "tool.split-pdf.desc",
     icon: "split-pdf",
     gradient: "from-amber-500 to-orange-600",
-    available: false,
+    available: true,
+    isNew: true,
   },
   {
     id: "rotate-pdf",

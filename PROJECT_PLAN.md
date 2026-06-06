@@ -105,32 +105,39 @@ Foydalanuvchilarning ~80% i shularni ishlatadi. To'liq mukammal qilinadi.
 5. **PDF ↔ boshqa formatlar (convert)** — ⏳ yangi
    - PDF → Word, PDF → Excel (auditoriya jadvalли hisobotlar bilan ishlaydi — muhim),
      PDF → JPG, va aksincha (Word/Excel/JPG → PDF)
-   - Birinchi bosqichda eng kerakli: PDF→Excel, PDF→Word, JPG→PDF
+   - Birinchi bosqichда eng kerakli: PDF→Excel, PDF→Word, JPG→PDF
+
+6. **PDF Organize / Sahifalarni boshqarish** — ⏳ yangi
+   - PDF'dan ba'zi sahifalarni o'chirib, qolganini bitta PDF qilib saqlash
+   - Sahifalarni drag&drop bilan qayta tartiblash
+   - Thumbnail bilan vizual tanlash (qaysi sahifa qoladi/o'chadi)
+   - **Split'dan farqi:** Split alohida fayllarga *ajratadi*; Organize esa bitta
+     fayl ichida sahifalarni *tahrirlaydi* (o'chirish + qayta tartiblash → 1 PDF)
 
 ### GURUH B — QO'SHIMCHA (ishonchli ishlaydigan daraja, mukammal shart emas)
 Kamroq ishlatiladi. Bug'siz ishlasin, lekin ortiqcha sayqal berilmaydi.
 
-6. PDF'ga sahifa raqami qo'shish (page numbers)
-7. Watermark (suv belgisi) qo'shish
-8. PDF protect (parol qo'yish) / unlock (parolni olib tashlash)
-9. PDF'dan sahifa o'chirish / qo'shish (organize)
-10. PDF/A formatga o'tkazish (arxivlash)
-11. PDF'dan rasm chiqarish (extract images)
-12. PDF'ni rasmga aylantirish (har sahifa = rasm)
-13. eSign (imzo qo'yish)
-14. PDF tahrirlash (matn/annotatsiya)
-15. OCR (skanlangan hujjatdan matn) — murakkab, oxirroqda
+7. PDF'ga sahifa raqami qo'shish (page numbers)
+8. Watermark (suv belgisi) qo'shish
+9. PDF protect (parol qo'yish) / unlock (parolni olib tashlash)
+10. PDF'ga tashqi sahifa/fayl qo'shish (sahifa o'chirish/tartiblash → A-6 Organize'da)
+11. PDF/A formatga o'tkazish (arxivlash)
+12. PDF'dan rasm chiqarish (extract images)
+13. PDF'ni rasmga aylantirish (har sahifa = rasm)
+14. eSign (imzo qo'yish)
+15. PDF tahrirlash (matn/annotatsiya)
+16. OCR (skanlangan hujjatdan matn) — murakkab, oxirroqda
 
 ### GURUH C — RAQOBATCHILARDA BOR, FARQLOVCHI (keyingi bosqich)
 Asosiy va qo'shimchalar tugagach, merge'ni yetakchilar darajasiga chiqaradi.
 
-16. **Sahifa darajasida tanlash (page-level selection)** — eng katta farqlovchi.
+17. **Sahifa darajasida tanlash (page-level selection)** — eng katta farqlovchi.
     Merge/split'da faylning faqat kerakli sahifalarini tanlash. Auditoriya uchun
     juda foydali (ГТД 17 sahifa, lekin 2 tasi kerak).
-17. **Sahifalarni fayllar orasida aralashtirib joylashtirish** (page-level reorder
+18. **Sahifalarni fayllar orasida aralashtirib joylashtirish** (page-level reorder
     across files) — A faylning sahifasini B orasiga sudrash.
-18. **Merge'dan keyin darhol compress tugmasi** (qayta yuklamasdan) — Smallpdf uslubi.
-19. Bo'sh sahifa / ajratuvchi sahifa qo'shish.
+19. **Merge'dan keyin darhol compress tugmasi** (qayta yuklamasdan) — Smallpdf uslubi.
+20. Bo'sh sahifa / ajratuvchi sahifa qo'shish.
 
 ---
 

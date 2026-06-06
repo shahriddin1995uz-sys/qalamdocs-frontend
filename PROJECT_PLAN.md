@@ -117,14 +117,21 @@ Foydalanuvchilarning ~80% i shularni ishlatadi. To'liq mukammal qilinadi.
      nomukammal bo'lishi mumkin — alohida qaror bilan qilinadi
    - ⏳ PDF→Word sifatini oshirish (pdf2docx bilan layout/jadval) — alohida
 
-6. **PDF Organize / Sahifalarni boshqarish** — ✅ TUGADI (brauzer testi kutilmoqda)
+6. **PDF Organize / Sahifalarni boshqarish** — ✅ TUGADI
    - Sahifa thumbnail'lari grid'i; dnd-kit bilan drag&drop tartiblash
-   - Har thumbnail'da o'chirish tugmasi; "Aslini tiklash" bilan qaytarish
-   - Natija: tanlangan tartibда bitta PDF (`/api/pdf/organize`, `order` juftligi,
-     fitz `insert_pdf`); yangi kutubxonasiz (faqat fitz + mavjud dnd-kit)
+   - Har thumbnail'da: o'chirish + aylantirish (90° qadam, jonli CSS preview)
+   - **Sahifa qo'shish:** boshqa PDF yoki rasm (JPG/PNG) yuklab, sahifalarini
+     qo'shadi — ularni ham suriladi/o'chiriladi/aylantiriladi; "Aslini tiklash"
+   - Bitta endpoint barcha amallarni qabul qiladi (`/api/pdf/organize`:
+     `operations` JSON {src,page,rot} + `additions` fayllar) → bitta yakuniy PDF;
+     yangi kutubxonasiz (fitz + PIL + mavjud dnd-kit)
    - Xato holatlari o'zbekcha; thumbnail/ishlovда spinner; mobil grid
    - **Split'dan farqi:** Split alohida fayllarga *ajratadi*; Organize esa bitta
-     fayl ichida sahifalarni *tahrirlaydi* (o'chirish + qayta tartiblash → 1 PDF)
+     fayl ichida sahifalarni *tahrirlaydi* (o'chirish + tartiblash + aylantirish
+     + qo'shish → 1 PDF)
+   - ⚠️ **Ma'lum qoldiq:** thumbnail birinchi yuklash sekin (~7-8s cold start,
+     pdf.js worker ilk yuklanishi) — keyinroq optimizatsiya (worker prewarm /
+     progressiv render)
 
 ### GURUH B — QO'SHIMCHA (ishonchli ishlaydigan daraja, mukammal shart emas)
 Kamroq ishlatiladi. Bug'siz ishlasin, lekin ortiqcha sayqal berilmaydi.
@@ -177,8 +184,8 @@ Maqsad: har funksiyaga foydalanuvchi **1-2 marta** aralashadi (har qadamда ema
 - ✅ Rotate — TUGADI (thumbnail rotate + jonli preview, brauzerda tasdiqlandi)
 - 🔶 Convert — rasm konvertatsiyalari TUGADI (JPG→PDF + PDF→JPG, brauzerda
   tasdiqlandi). PDF→Word mavjud. PDF→Excel keyinga qoldirildi (dependency qarori)
-- ✅ Organize — TUGADI (drag&drop tartiblash + sahifa o'chirish; brauzer testi
-  kutilmoqda)
+- ✅ Organize — TUGADI (drag&drop tartiblash + o'chirish + aylantirish + sahifa
+  qo'shish, brauzerda tasdiqlandi; qoldiq: thumbnail cold start ~7-8s)
 - ⏳ Qolganlari — boshlanmagan
 
 **Keyingi qadam:** PDF→Excel uchun dependency qarori, yoki Guruh B funksiyalari.

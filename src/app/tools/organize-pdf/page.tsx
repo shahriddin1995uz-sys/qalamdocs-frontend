@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   DndContext,
   closestCenter,
@@ -20,27 +20,42 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import ToolPageShell from "@/components/ToolPageShell";
 import FileDropzone from "@/components/FileDropzone";
-import { Spinner, Check, ArrowRight, Trash } from "@/components/icons";
+import { Spinner, Check, ArrowRight, Trash, RotateCw } from "@/components/icons";
 import { ApiError, postFile, downloadBlob } from "@/lib/api";
-import { generatePageThumbnails } from "@/lib/pdfUtils";
+import { generatePageThumbnails, generateImageThumbnail } from "@/lib/pdfUtils";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import type { TranslationKey } from "@/i18n/translations";
 
-type PageItem = { id: string; page: number; thumb: string };
+// A page in the grid. `src` is "main" (original file) or an addition index
+// ("0", "1", ...). `page` is the 0-based page index within that source.
+type PageItem = {
+  id: string;
+  src: string;
+  page: number;
+  thumb: string;
+  rotation: number;
+};
 type Status = "idle" | "thumbs" | "ready" | "processing" | "done";
+
+const norm = (deg: number) => ((deg % 360) + 360) % 360;
+const isImageName = (n: string) => /\.(jpe?g|png)$/i.test(n);
 
 function SortablePage({
   item,
   position,
   onRemove,
+  onRotate,
   removable,
   removeLabel,
+  rotateLabel,
 }: {
   item: PageItem;
   position: number;
   onRemove: (id: string) => void;
+  onRotate: (id: string) => void;
   removable: boolean;
   removeLabel: string;
+  rotateLabel: string;
 }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: item.id });
@@ -65,7 +80,8 @@ function SortablePage({
         src={item.thumb}
         alt=""
         draggable={false}
-        className="pointer-events-none max-h-full max-w-full select-none object-contain"
+        className="pointer-events-none max-h-full max-w-full select-none object-contain transition-transform duration-200"
+        style={{ transform: `rotate(${item.rotation}deg)` }}
       />
       <span className="absolute left-1 top-1 rounded bg-ink-900/70 px-1.5 py-0.5 text-[10px] font-semibold text-white">
         {position}
@@ -83,16 +99,34 @@ function SortablePage({
       >
         <Trash className="h-3.5 w-3.5" />
       </button>
+      <button
+        type="button"
+        onPointerDown={(e) => e.stopPropagation()}
+        onClick={(e) => {
+          e.stopPropagation();
+          onRotate(item.id);
+        }}
+        aria-label={rotateLabel}
+        className="absolute bottom-1 right-1 inline-flex h-6 w-6 items-center justify-center rounded-md bg-white/90 text-ink-600 shadow-sm transition hover:bg-brand-600 hover:text-white"
+      >
+        <RotateCw className="h-3.5 w-3.5" />
+      </button>
     </div>
   );
 }
 
 export default function OrganizePdfPage() {
   const { t } = useLanguage();
+  const addInputRef = useRef<HTMLInputElement>(null);
+  const nextId = useRef(0);
+  const makeId = () => `p-${nextId.current++}`;
+
   const [file, setFile] = useState<File | null>(null);
+  const [additions, setAdditions] = useState<File[]>([]);
   const [pages, setPages] = useState<PageItem[]>([]);
   const [original, setOriginal] = useState<PageItem[]>([]);
   const [status, setStatus] = useState<Status>("idle");
+  const [adding, setAdding] = useState(false);
   const [errorKey, setErrorKey] = useState<TranslationKey | null>(null);
   const [errorText, setErrorText] = useState<string | null>(null);
   const [result, setResult] = useState<{ blob: Blob; filename: string } | null>(null);
@@ -104,9 +138,11 @@ export default function OrganizePdfPage() {
 
   const reset = () => {
     setFile(null);
+    setAdditions([]);
     setPages([]);
     setOriginal([]);
     setStatus("idle");
+    setAdding(false);
     setErrorKey(null);
     setErrorText(null);
     setResult(null);
@@ -125,13 +161,16 @@ export default function OrganizePdfPage() {
       return;
     }
     setFile(f);
+    setAdditions([]);
     setStatus("thumbs");
     try {
       const { thumbnails } = await generatePageThumbnails(f);
-      const items = thumbnails.map((thumb, i) => ({
-        id: `page-${i + 1}`,
-        page: i + 1,
+      const items: PageItem[] = thumbnails.map((thumb, i) => ({
+        id: makeId(),
+        src: "main",
+        page: i,
         thumb,
+        rotation: 0,
       }));
       setOriginal(items);
       setPages(items);
@@ -141,6 +180,50 @@ export default function OrganizePdfPage() {
       setStatus("idle");
       setErrorKey("error.wrongPdf");
     }
+  };
+
+  const onAddFiles = async (fileList: FileList | null) => {
+    if (!fileList || fileList.length === 0) return;
+    setErrorKey(null);
+    setErrorText(null);
+    setAdding(true);
+
+    const newAdds = [...additions];
+    const newItems: PageItem[] = [];
+    let hadBad = false;
+
+    for (const f of Array.from(fileList)) {
+      const lower = f.name.toLowerCase();
+      const addIdx = newAdds.length;
+      if (lower.endsWith(".pdf")) {
+        newAdds.push(f);
+        try {
+          const { thumbnails } = await generatePageThumbnails(f);
+          thumbnails.forEach((thumb, i) =>
+            newItems.push({ id: makeId(), src: String(addIdx), page: i, thumb, rotation: 0 })
+          );
+        } catch {
+          newAdds.pop();
+          hadBad = true;
+        }
+      } else if (isImageName(lower)) {
+        newAdds.push(f);
+        try {
+          const thumb = await generateImageThumbnail(f);
+          newItems.push({ id: makeId(), src: String(addIdx), page: 0, thumb, rotation: 0 });
+        } catch {
+          newAdds.pop();
+          hadBad = true;
+        }
+      } else {
+        hadBad = true;
+      }
+    }
+
+    setAdditions(newAdds);
+    if (newItems.length > 0) setPages((prev) => [...prev, ...newItems]);
+    if (hadBad) setErrorKey("error.organize.badAdd");
+    setAdding(false);
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -158,8 +241,13 @@ export default function OrganizePdfPage() {
     setPages((prev) => prev.filter((p) => p.id !== id));
     setErrorKey(null);
   };
-
+  const rotatePage = (id: string) => {
+    setPages((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, rotation: norm(p.rotation + 90) } : p))
+    );
+  };
   const restore = () => {
+    setAdditions([]);
     setPages(original);
     setErrorKey(null);
   };
@@ -174,9 +262,11 @@ export default function OrganizePdfPage() {
     setErrorText(null);
     setStatus("processing");
 
+    const operations = pages.map((p) => ({ src: p.src, page: p.page, rot: p.rotation }));
     const fd = new FormData();
     fd.append("file", file);
-    fd.append("order", pages.map((p) => p.page).join(","));
+    additions.forEach((f) => fd.append("additions", f));
+    fd.append("operations", JSON.stringify(operations));
 
     try {
       const blob = await postFile("/api/pdf/organize", fd);
@@ -229,7 +319,7 @@ export default function OrganizePdfPage() {
     );
   }
 
-  const deletedCount = original.length - pages.length;
+  const changed = pages.length !== original.length || additions.length > 0;
 
   return (
     <ToolPageShell toolId="organize-pdf">
@@ -263,13 +353,10 @@ export default function OrganizePdfPage() {
           <div className="flex items-center justify-between gap-3">
             <p className="min-w-0 truncate text-sm font-medium text-ink-700">
               {file.name}{" "}
-              <span className="text-ink-400">
-                · {pages.length} {t("organize.remains")}
-                {deletedCount > 0 ? ` (−${deletedCount})` : ""}
-              </span>
+              <span className="text-ink-400">· {pages.length} {t("organize.remains")}</span>
             </p>
             <div className="flex shrink-0 items-center gap-3">
-              {deletedCount > 0 || pages.length !== original.length ? (
+              {changed && (
                 <button
                   type="button"
                   onClick={restore}
@@ -277,7 +364,7 @@ export default function OrganizePdfPage() {
                 >
                   {t("organize.restore")}
                 </button>
-              ) : null}
+              )}
               <button
                 type="button"
                 onClick={reset}
@@ -304,13 +391,43 @@ export default function OrganizePdfPage() {
                     item={item}
                     position={idx + 1}
                     onRemove={removePage}
+                    onRotate={rotatePage}
                     removable={pages.length > 1}
                     removeLabel={t("drop.remove")}
+                    rotateLabel={t("rotate.right")}
                   />
                 ))}
               </div>
             </SortableContext>
           </DndContext>
+
+          {/* Add pages */}
+          <input
+            ref={addInputRef}
+            type="file"
+            accept="application/pdf,.pdf,image/jpeg,image/png,.jpg,.jpeg,.png"
+            multiple
+            className="hidden"
+            onClick={(e) => {
+              (e.target as HTMLInputElement).value = "";
+            }}
+            onChange={(e) => onAddFiles(e.target.files)}
+          />
+          <button
+            type="button"
+            onClick={() => addInputRef.current?.click()}
+            disabled={adding}
+            className="mt-4 inline-flex items-center gap-2 rounded-lg border border-dashed border-ink-300 px-4 py-2.5 text-sm font-semibold text-ink-600 transition hover:border-brand-400 hover:text-brand-600 disabled:opacity-60"
+          >
+            {adding ? (
+              <>
+                <Spinner className="h-4 w-4 animate-spin" />
+                {t("organize.adding")}
+              </>
+            ) : (
+              <>+ {t("organize.addPages")}</>
+            )}
+          </button>
 
           {/* Error */}
           {(errorKey || errorText) && (

@@ -240,14 +240,20 @@ export const translations = {
 
   // Organize tool
   "organize.hint": {
-    lat: "Sahifalarni sudrab tartiblang, keraksizlarini o'chiring.",
-    cyr: "Саҳифаларни судраб тартибланг, кераксизларини ўчиринг.",
+    lat: "Sahifalarni sudrab tartiblang, aylantiring yoki o'chiring. Yangi sahifa ham qo'shishingiz mumkin.",
+    cyr: "Саҳифаларни судраб тартибланг, айлантиринг ёки ўчиринг. Янги саҳифа ҳам қўшишингиз мумкин.",
   },
   "organize.remains": { lat: "sahifa qoladi", cyr: "саҳифа қолади" },
   "organize.restore": { lat: "Aslini tiklash", cyr: "Аслини тиклаш" },
+  "organize.addPages": { lat: "Sahifa qo'shish", cyr: "Саҳифа қўшиш" },
+  "organize.adding": { lat: "Qo'shilmoqda...", cyr: "Қўшилмоқда..." },
   "error.organize.empty": {
     lat: "Kamida 1 sahifa qoldiring.",
     cyr: "Камида 1 саҳифа қолдиринг.",
+  },
+  "error.organize.badAdd": {
+    lat: "Faqat PDF yoki rasm (JPG/PNG) qo'shish mumkin.",
+    cyr: "Фақат PDF ёки расм (JPG/PNG) қўшиш мумкин.",
   },
 
   // Dropzone

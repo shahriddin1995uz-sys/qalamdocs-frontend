@@ -8,6 +8,7 @@ export type ToolId =
   | "split-pdf"
   | "rotate-pdf"
   | "pdf-to-jpg"
+  | "jpg-to-pdf"
   | "word-to-pdf"
   | "protect-pdf"
   | "sign-pdf";
@@ -84,12 +85,23 @@ export const tools: Tool[] = [
   },
   {
     id: "pdf-to-jpg",
-    href: "#",
+    href: "/tools/pdf-to-jpg",
     titleKey: "tool.pdf-to-jpg.title",
     descKey: "tool.pdf-to-jpg.desc",
     icon: "pdf-to-jpg",
     gradient: "from-fuchsia-500 to-pink-600",
-    available: false,
+    available: true,
+    isNew: true,
+  },
+  {
+    id: "jpg-to-pdf",
+    href: "/tools/jpg-to-pdf",
+    titleKey: "tool.jpg-to-pdf.title",
+    descKey: "tool.jpg-to-pdf.desc",
+    icon: "jpg-to-pdf",
+    gradient: "from-pink-500 to-fuchsia-600",
+    available: true,
+    isNew: true,
   },
   {
     id: "word-to-pdf",

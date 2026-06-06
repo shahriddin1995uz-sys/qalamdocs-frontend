@@ -106,10 +106,16 @@ Foydalanuvchilarning ~80% i shularni ishlatadi. To'liq mukammal qilinadi.
    - ⏳ Qoldi (keyinroq): Merge sahifasiga integratsiya (har thumbnail'da rotate)
      — merge "MUKAMMAL TUGADI" bo'lgani uchun alohida, ehtiyotkorlik bilan
 
-5. **PDF ↔ boshqa formatlar (convert)** — ⏳ yangi
-   - PDF → Word, PDF → Excel (auditoriya jadvalли hisobotlar bilan ishlaydi — muhim),
-     PDF → JPG, va aksincha (Word/Excel/JPG → PDF)
-   - Birinchi bosqichда eng kerakli: PDF→Excel, PDF→Word, JPG→PDF
+5. **PDF ↔ boshqa formatlar (convert)** — 🔶 QISMAN (rasm konvertatsiyalari TUGADI)
+   - ✅ **PDF → Word** — mavjud (matn + OCR → docx; layout/jadval saqlamaydi)
+   - ✅ **JPG → PDF** — yangi (bir nechta rasm → bitta PDF, tartib saqlanadi,
+     `/api/pdf/jpg-to-pdf`; brauzer testi kutilmoqda)
+   - ✅ **PDF → JPG** — yangi (har sahifa → JPG, ZIP, `/api/pdf/pdf-to-jpg`;
+     brauzer testi kutilmoqda)
+   - ⏳ **PDF → Excel** — keyinga: jadval ajratish kutubxonasi (pdfplumber/camelot)
+     + openpyxl o'rnatish kerak, Render deploy o'zgaradi, sifat real hujjatlarда
+     nomukammal bo'lishi mumkin — alohida qaror bilan qilinadi
+   - ⏳ PDF→Word sifatini oshirish (pdf2docx bilan layout/jadval) — alohida
 
 6. **PDF Organize / Sahifalarni boshqarish** — ⏳ yangi
    - PDF'dan ba'zi sahifalarni o'chirib, qolganini bitta PDF qilib saqlash
@@ -167,6 +173,8 @@ Maqsad: har funksiyaga foydalanuvchi **1-2 marta** aralashadi (har qadamда ema
 - ✅ Compress — TUGADI (3 variant + real siqish + tez estimate)
 - ✅ Split — TUGADI (3 rejim + thumbnail tanlash, brauzerda tasdiqlandi)
 - ✅ Rotate — TUGADI (thumbnail rotate + jonli preview, brauzerda tasdiqlandi)
+- 🔶 Convert — rasm konvertatsiyalari TUGADI (JPG→PDF + PDF→JPG; brauzer testi
+  kutilmoqda). PDF→Word mavjud. PDF→Excel keyinga qoldirildi (dependency qarori)
 - ⏳ Qolganlari — boshlanmagan
 
-**Keyingi qadam:** PDF ↔ formatlar (convert) — Guruh A, 5-band. Yoki Organize (6-band).
+**Keyingi qadam:** PDF→Excel uchun dependency qarori, yoki Organize (6-band).

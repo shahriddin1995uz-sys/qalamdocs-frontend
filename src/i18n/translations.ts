@@ -101,6 +101,11 @@ export const translations = {
     lat: "Har bir sahifani rasmga aylantiring.",
     cyr: "Ҳар бир саҳифани расмга айлантиринг.",
   },
+  "tool.jpg-to-pdf.title": { lat: "Rasmdan PDF", cyr: "Расмдан PDF" },
+  "tool.jpg-to-pdf.desc": {
+    lat: "JPG va PNG rasmlarni bitta PDF'ga birlashtiring.",
+    cyr: "JPG ва PNG расмларни битта PDF'га бирлаштиринг.",
+  },
   "tool.word-to-pdf.title": { lat: "Word dan PDF", cyr: "Word дан PDF" },
   "tool.word-to-pdf.desc": {
     lat: "DOCX hujjatlarini PDF formatiga o'tkazing.",

@@ -106,6 +106,11 @@ export const translations = {
     lat: "JPG va PNG rasmlarni bitta PDF'ga birlashtiring.",
     cyr: "JPG ва PNG расмларни битта PDF'га бирлаштиринг.",
   },
+  "tool.pdf-to-excel.title": { lat: "PDF dan Excel", cyr: "PDF дан Excel" },
+  "tool.pdf-to-excel.desc": {
+    lat: "PDF'dagi jadvallarni Excel (.xlsx) jadvaliga ajratib oling.",
+    cyr: "PDF'даги жадвалларни Excel (.xlsx) жадвалига ажратиб олинг.",
+  },
   "tool.organize-pdf.title": { lat: "Sahifalarni boshqarish", cyr: "Саҳифаларни бошқариш" },
   "tool.organize-pdf.desc": {
     lat: "Sahifalarni o'chiring va qayta tartiblang.",

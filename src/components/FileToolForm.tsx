@@ -52,12 +52,16 @@ export default function FileToolForm({
   const [files, setFiles] = useState<File[]>([]);
   const [status, setStatus] = useState<Status>("idle");
   const [errorKey, setErrorKey] = useState<TranslationKey | null>(null);
+  // Backenddan kelgan tayyor o'zbekcha xabar (masalan skan PDF / jadval yo'q) —
+  // tarjima kalitidan ko'ra ustun ko'rsatiladi.
+  const [errorText, setErrorText] = useState<string | null>(null);
   const [result, setResult] = useState<{ blob: Blob; filename: string } | null>(null);
 
   const reset = () => {
     setFiles([]);
     setStatus("idle");
     setErrorKey(null);
+    setErrorText(null);
     setResult(null);
   };
 
@@ -65,11 +69,13 @@ export default function FileToolForm({
     const validationError = validate(files);
     if (validationError) {
       setErrorKey(validationError);
+      setErrorText(null);
       setStatus("error");
       return;
     }
     setStatus("processing");
     setErrorKey(null);
+    setErrorText(null);
 
     const formData = new FormData();
     if (multiple) {
@@ -86,8 +92,14 @@ export default function FileToolForm({
       setResult({ blob, filename: outputName(files) });
       setStatus("done");
     } catch (err) {
-      const code = err instanceof ApiError ? err.code : "server";
-      setErrorKey(code === "network" ? "error.network" : "error.server");
+      if (err instanceof ApiError && err.code === "server" && err.detail) {
+        // Backend tushunarli o'zbekcha xabar yubordi — uni to'g'ridan-to'g'ri ko'rsatamiz.
+        setErrorText(err.detail);
+      } else if (err instanceof ApiError && err.code === "network") {
+        setErrorKey("error.network");
+      } else {
+        setErrorKey("error.server");
+      }
       setStatus("error");
     }
   };
@@ -133,6 +145,7 @@ export default function FileToolForm({
           if (status === "error") {
             setStatus("idle");
             setErrorKey(null);
+            setErrorText(null);
           }
         }}
         accept={accept}
@@ -156,9 +169,9 @@ export default function FileToolForm({
 
       {files.length > 0 && children}
 
-      {errorKey && (
+      {(errorKey || errorText) && (
         <p className="mt-4 rounded-lg bg-brand-50 px-4 py-3 text-sm font-medium text-brand-700">
-          {t(errorKey)}
+          {errorText ?? (errorKey ? t(errorKey) : null)}
         </p>
       )}
 

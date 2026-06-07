@@ -67,6 +67,12 @@ Funksiya quyidagilarning HAMMASIni qondirса — tugagan hisoblanadi:
 
 ## 4. FUNKSIYALAR REJASI
 
+> ⚠️ **RENDER DEPLOY ESLATMASI:** PDF→Excel uchun backend'ga yangi kutubxonalar
+> qo'shildi — `pdfplumber` (+ `pdfminer.six`, `pypdfium2`) va `openpyxl`
+> (+ `et-xmlfile`). `requirements.txt` yangilandi. Render'da deploy qilinganda
+> **rebuild kerak** (yangi paketlar o'rnatilishi uchun). Ghostscript/OCR shart emas
+> — sof Python.
+
 ### GURUH A — ASOSIY (mukammal darajada, ustuvor)
 Foydalanuvchilarning ~80% i shularni ishlatadi. To'liq mukammal qilinadi.
 
@@ -112,9 +118,26 @@ Foydalanuvchilarning ~80% i shularni ishlatadi. To'liq mukammal qilinadi.
      `/api/pdf/jpg-to-pdf`; brauzerda tasdiqlandi)
    - ✅ **PDF → JPG** — yangi (har sahifa → JPG, ZIP, `/api/pdf/pdf-to-jpg`;
      brauzerda tasdiqlandi)
-   - ⏳ **PDF → Excel** — keyinga: jadval ajratish kutubxonasi (pdfplumber/camelot)
-     + openpyxl o'rnatish kerak, Render deploy o'zgaradi, sifat real hujjatlarда
-     nomukammal bo'lishi mumkin — alohida qaror bilan qilinadi
+   - ✅ **PDF → Excel** — yangi (pdfplumber + openpyxl, sof Python;
+     `/api/pdf/pdf-to-excel`). Faqat RAQAMLI (matn qatlami bor) PDF. Skан PDF va
+     jadvalsiz PDF uchun aniq o'zbekcha xato (sayt yiqilmaydi, HTTP 422). Jadval
+     ajratish `extract_tables_to_xlsx(bytes)→bytes` da — kelajakda OCR searchable
+     PDF shu yo'lga beriladi.
+     - **Maqsad: didox'ning O'Z Excel eksporti ko'rinishi — vizual nusxa, HAMMASI
+       BIR VARAQDA, PDF tartibida** (4 real счёт-фактура'da tasdiqlandi, w595/w842;
+       eski "товар + Ma'lumot ikki varaq" yondashuvi tashlandi).
+     - `_analyze_page` sahifani Y-koordinata bo'yicha segmentlaydi: sarlavha
+       (Счет-фактура/№/договору — markazda, A:K birlashtirilgan) → поставщик∥
+       покупатель (gap bo'yicha 2-ustun aniqlanadi, A/C/F/I bandlarga) → товар
+       jadvali (LATTICE grid, chegarali, sarlavha bold) → Итого → Всего к оплате →
+       imzo bloki (2 ustun A|F).
+     - Sonlar HAQIQIY son (SUM ishlaydi); НДС stavkasi 0.12 + "0%" format; kod/
+       ИНН-suffiks/matn o'zgarmaydi. Ustun kengliklari didox o'lchami
+       (A=3,B=36,C=auto,D=18,E=10,F=11,G=36,H=6,I=12,J=17,K=21).
+     - Ma'lum kichik qoldiq: Итого qatorida НДС yig'indisi ba'zan H (Ставка)
+       ustunига tushadi (lattice'ning birlashgan katakni o'qishi) — товар
+       strukturasiga tegilmagani uchun qoldirildi.
+     ⏳ Brauzerda real didox счёт-фактура bilan didox Excel etaloniga solishtirish kutilmoqda
    - ⏳ PDF→Word sifatini oshirish (pdf2docx bilan layout/jadval) — alohida
 
 6. **PDF Organize / Sahifalarni boshqarish** — ✅ TUGADI
@@ -183,9 +206,12 @@ Maqsad: har funksiyaga foydalanuvchi **1-2 marta** aralashadi (har qadamда ema
 - ✅ Split — TUGADI (3 rejim + thumbnail tanlash, brauzerda tasdiqlandi)
 - ✅ Rotate — TUGADI (thumbnail rotate + jonli preview, brauzerda tasdiqlandi)
 - 🔶 Convert — rasm konvertatsiyalari TUGADI (JPG→PDF + PDF→JPG, brauzerda
-  tasdiqlandi). PDF→Word mavjud. PDF→Excel keyinga qoldirildi (dependency qarori)
+  tasdiqlandi). PDF→Word mavjud. PDF→Excel kod yozildi (pdfplumber+openpyxl,
+  3 yo'l ham backend testlarida ishladi) — brauzerda real счёт-фактура bilan
+  tasdiqlash kutilmoqda; tasdiqlangach commit qilinadi
 - ✅ Organize — TUGADI (drag&drop tartiblash + o'chirish + aylantirish + sahifa
   qo'shish, brauzerda tasdiqlandi; qoldiq: thumbnail cold start ~7-8s)
 - ⏳ Qolganlari — boshlanmagan
 
-**Keyingi qadam:** PDF→Excel uchun dependency qarori, yoki Guruh B funksiyalari.
+**Keyingi qadam:** PDF→Excel'ni brauzerda real didox счёт-фактура bilan test qilish
+→ tasdiqlangach commit. So'ng PDF→Word sifatini oshirish yoki Guruh B funksiyalari.

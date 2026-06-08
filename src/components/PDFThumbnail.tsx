@@ -34,7 +34,7 @@ export default function PDFThumbnail({
   const [modalPages, setModalPages] = useState<string[] | null>(null);
   const [previewLoading, setPreviewLoading] = useState(false);
   const thumbRef = useRef<HTMLDivElement>(null);
-  const hoverTimeoutRef = useRef<NodeJS.Timeout>();
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
   const prevPreviewUrlRef = useRef<string | null>(null);
   const prevModalUrlsRef = useRef<string[] | null>(null);
 

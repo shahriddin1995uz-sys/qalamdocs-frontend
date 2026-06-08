@@ -48,7 +48,7 @@ export default function FileToolForm({
   children,
 }: Props) {
   const { t } = useLanguage();
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null!);
   const [files, setFiles] = useState<File[]>([]);
   const [status, setStatus] = useState<Status>("idle");
   const [errorKey, setErrorKey] = useState<TranslationKey | null>(null);

@@ -69,9 +69,10 @@ export async function generatePDFThumbnail(
 
     // Render page to canvas
     await page.render({
-      canvasContext: context,
-      viewport: scaledViewport,
-    }).promise;
+  canvasContext: context,
+  viewport: scaledViewport,
+  canvas: canvas,
+}).promise;
 
     // Return as data URL along with metadata
     return {
@@ -227,6 +228,7 @@ export async function generatePDFPreview(
     await page.render({
       canvasContext: context,
       viewport: scaledViewport,
+      canvas: canvas,
     }).promise;
 
     if (options.useBlob) {
@@ -275,7 +277,7 @@ export async function generatePDFPreviews(
       canvas.width = scaledViewport.width;
       canvas.height = scaledViewport.height;
 
-      await page.render({ canvasContext: context, viewport: scaledViewport }).promise;
+      await page.render({ canvasContext: context, viewport: scaledViewport, canvas }).promise;
 
       results.push(await canvasToBlobUrl(canvas));
     }
